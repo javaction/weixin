@@ -5,7 +5,12 @@
 package com.weixin.message.util;
 
 import com.weixin.util.LogManager;
+import java.net.URL;
 import java.util.logging.Logger;
+import javax.net.ssl.HttpsURLConnection;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLSocketFactory;
+import javax.net.ssl.TrustManager;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
 import org.apache.http.client.HttpClient;
@@ -48,12 +53,42 @@ public class WeixinUtil {
         return result;
     }
     
-    //发起https请求并获取结果
     
+    /**
+     * //发起https请求并获取结果
+     * @param requestUrl 请求地址
+     * @param requestMethod 请求方式（get、post）
+     * @param outputStr 提交的数据
+     * @return 
+     */
     public static String httpRequest(String requestUrl, String requestMethod, String outputStr){
+        
         StringBuffer buffer = new StringBuffer();    
         try {
-            ///加油啊
+            //创建SSLContext对象，并使用我们指定的信任管理器初始化
+            TrustManager[] tm = { new MyX509TrustManager() };
+            SSLContext sslContext = SSLContext.getInstance("SSL", "SunJSSE");
+            sslContext.init(null, tm, new java.security.SecureRandom());
+            //从上述SSLContext对象中得到SSLSocketFactory对象
+            SSLSocketFactory ssf = sslContext.getSocketFactory();
+            
+            URL url = new URL(requestUrl);
+            HttpsURLConnection httpsURLConnection = (HttpsURLConnection)url.openConnection();
+            httpsURLConnection.setSSLSocketFactory(ssf);
+              
+            ///备注：需要详细看下 HttpsURLConnection 相关的方法
+            httpsURLConnection.setDoOutput(true); // 以后就可以使用conn.getOutputStream().write()  
+            httpsURLConnection.setDoInput(true); // 以后就可以使用conn.getInputStream().read(); 
+            httpsURLConnection.setUseCaches(false); // post请求不能使用缓存
+                    
+            //设置请求方式
+            httpsURLConnection.setRequestMethod(requestMethod);
+            
+            if("get".equalsIgnoreCase(requestMethod))
+                httpsURLConnection.connect();
+            
+            ////明儿，继续....
+            
             
         } catch (Exception e) {
             e.printStackTrace();
