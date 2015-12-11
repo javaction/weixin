@@ -5,6 +5,11 @@
 package com.weixin.message.util;
 
 import com.weixin.util.LogManager;
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.net.ConnectException;
 import java.net.URL;
 import java.util.logging.Logger;
 import javax.net.ssl.HttpsURLConnection;
@@ -22,8 +27,8 @@ import org.apache.http.util.EntityUtils;
  *
  * @author Administrator
  */
-public class WeixinUtil {
-    private static final Logger logger = LogManager.getLogger(WeixinUtil.class);
+public class HttpUtil {
+    private static final Logger logger = LogManager.getLogger(HttpUtil.class);
     
     /**
      * 
@@ -87,13 +92,44 @@ public class WeixinUtil {
             if("get".equalsIgnoreCase(requestMethod))
                 httpsURLConnection.connect();
             
-            ////明儿，继续....
+            //当有数据需要提交时
+            if(null != outputStr){
+                OutputStream outputStream = httpsURLConnection.getOutputStream();
+                //注意编码方式，防止中文乱码
+                outputStream.write(outputStr.getBytes("utf-8"));
+                outputStream.close();
+                
+            }
             
+            //将返回的输入流转换成字符串
+            InputStream inputStream = httpsURLConnection.getInputStream();
+            InputStreamReader inputStreamReader = new InputStreamReader(inputStream, "utf-8");
+            BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
             
-        } catch (Exception e) {
+            String str = null;
+            while((str = bufferedReader.readLine()) != null){
+                buffer.append(str);
+            }
+            bufferedReader.close();
+            inputStreamReader.close();
+            
+            //释放资源
+            inputStream.close();
+            inputStream = null;
+            
+            httpsURLConnection.disconnect();
+            
+            return buffer.toString();
+            
+        }catch (ConnectException ce){
+            ce.printStackTrace();
+            logger.severe("Weixin server connection timed out.");
+        } 
+        catch (Exception e) {
             e.printStackTrace();
-        }
-        
+            logger.severe("https request error:{}"+e.getMessage());
+        } 
+               
         return null;
     }
     

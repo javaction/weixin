@@ -4,12 +4,14 @@
  */
 package com.weixin.message.servlet;
 
+import com.weixin.message.util.HttpUtil;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import net.sf.json.JSONObject;
 
 /**
  * 
@@ -88,6 +90,48 @@ public class Oauth2Servlet extends HttpServlet {
         getAccessTokenUrl = getAccessTokenUrl.replace("SECRET", appSecret);
         getAccessTokenUrl = getAccessTokenUrl.replace("CODE", code);
         
+        String json = HttpUtil.getUrl(getAccessTokenUrl);
+        
+        JSONObject jsonObject = JSONObject.fromObject(json);
+        String accessToken = jsonObject.getString("access_token");
+        String openId = jsonObject.getString("openid");
+        
+        getUserInfo = getUserInfo.replace("ACCESS_TOKEN", accessToken);
+        getUserInfo = getUserInfo.replace("OPENID", openId);
+        
+        String userInfoJsonStr = HttpUtil.getUrl(getUserInfo);
+        JSONObject userInfoJson = JSONObject.fromObject(userInfoJsonStr);
+        
+        String user_openid = userInfoJson.getString("openid");
+        String user_nickname = userInfoJson.getString("nickname");
+        String user_sex = userInfoJson.getString("sex");
+        String user_province = userInfoJson.getString("province");
+        String user_city = userInfoJson.getString("city");
+        String user_country = userInfoJson.getString("country");
+        String user_headimgurl = userInfoJson.getString("headimgurl");
+        
+        response.setContentType("text/html;charset = utf-8");
+        PrintWriter out = response.getWriter();
+        
+        out.println("<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\">");
+        out.println("<HTML>");
+        out.println("  <HEAD><TITLE>A Servlet</TITLE></HEAD>");
+        out.println("  <BODY>");
+        out.print("    This is ");
+        out.print(this.getClass());
+        out.println(", using the POST method \n");
+        out.println("openid:"+user_openid+"\n\n");        
+        out.println("nickname:"+user_nickname+"\n\n");        
+        out.println("sex:"+user_sex+"\n\n");        
+        out.println("province:"+user_province+"\n\n");        
+        out.println("city:"+user_city+"\n\n");        
+        out.println("country:"+user_country+"\n\n");
+        out.println("<img src=/"+user_headimgurl+"/");
+        out.println(">");
+        out.println("  </BODY>");
+        out.println("</HTML>");
+        out.flush();
+        out.close();
         
         
     }
@@ -104,7 +148,22 @@ public class Oauth2Servlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        
+        response.setContentType("text/html");
+        PrintWriter out = response.getWriter();
+        out.println("<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\">");
+        out.println("<HTML>");
+        out.println("  <HEAD><TITLE>A Servlet</TITLE></HEAD>");
+        out.println("  <BODY>");
+        out.print("    This is ");
+        out.print(this.getClass());
+        out.println(", using the POST method");
+        out.println("  </BODY>");
+        out.println("</HTML>");
+        out.flush();
+        out.close();
+        
+        
     }
 
     /**
