@@ -4,8 +4,15 @@
  */
 package com.weixin.message.util;
 
+import com.thoughtworks.xstream.XStream;
+import com.thoughtworks.xstream.core.util.QuickWriter;
+import com.thoughtworks.xstream.io.HierarchicalStreamWriter;
+import com.thoughtworks.xstream.io.xml.PrettyPrintWriter;
+import com.thoughtworks.xstream.io.xml.XppDriver;
+import com.weixin.message.bean.ImageMessage;
 import com.weixin.message.bean.TextMessage;
 import java.io.InputStream;
+import java.io.Writer;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,7 +28,7 @@ import org.dom4j.io.SAXReader;
  * 需要根据文档中的接收和发送消息类型来实现messageUtil的所有类型，两种情况（接收、发送）的需要区分开
  */
 public class MessageUtil {
-    
+    //
     /**
      * 返回消息类型：文本
      */
@@ -36,7 +43,12 @@ public class MessageUtil {
      * 返回消息类型：图文
      */
     public static final String RESP_MESSAGE_TYPE_NEWS = "news";
-
+    
+    /**
+     * 返回消息类型：图片  //test1
+     */
+  //  public static final String RESP_MESSAGE_TYPE_IMAGE = "image";
+    
     /**
      * 请求消息类型：文本
      */
@@ -117,12 +129,67 @@ public class MessageUtil {
         return map;
     }
         
-    
+    /**
+     * 文本消息对象转换成xml
+     * @param textMessage 文本消息对象 XStream是一个java对象和xml相互转换的工具
+     * @return xml
+     */
     public static String textMessageToXml(TextMessage textMessage){
-        ///////继续，，，，，
-        return null;
+        xstream.alias("xml", textMessage.getClass());
+        
+        return xstream.toXML(textMessage);
     }
         
+    /**
+     *  test1
+     * 图片消息转换成xml
+     * @param imageMessage
+     * @return 
+     */
+    public static String imageMessageToXml(ImageMessage imageMessage){
+        xstream.alias("xml", imageMessage.getClass());
+        
+        return xstream.toXML(imageMessage);
+    }
+    
+    
+    //此处还有其他的将 各种类型的消息 转换成对应的xml数据的方法
+    
+    
+    
+    /**
+     * 扩展xstream，使其支持CDATA块
+     */
+    private static XStream xstream = new XStream(new XppDriver(){
+        public HierarchicalStreamWriter creatWriter(Writer out){
+            return new PrettyPrintWriter(out){
+                //对所有的xml节点都增加CDATA标志
+                boolean cdata = true;
+                
+                @SuppressWarnings("unchecked")
+                public void startNode(String nameString,Class clazz){
+                    super.startNode(nameString, clazz);
+                }
+                
+                protected void writeText(QuickWriter writer, String text){
+                    if(cdata){
+                        writer.write("<![CDATA[");
+                        writer.write(text);
+                        writer.write("]]>");
+                    }else{
+                        writer.write(text);
+                    }
+                    
+                }
+            }; //return 
+            
+        }
+        
+    });
+    
+    
+    
+    
     
     
         

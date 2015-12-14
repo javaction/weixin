@@ -5,6 +5,7 @@
 package com.weixin.message.servlet;
 
 import com.weixin.message.util.SignUtil;
+import com.weixin.service.CrazyService;
 import com.weixin.util.LogManager;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -99,7 +100,19 @@ public class CrazyServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        
+        // 将请求、响应的编码均设置成utf-8
+        request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
+        
+        //调用核心业务类接收、处理消息
+        String respMessage = CrazyService.processRequest(request);
+        
+        //响应消息
+        PrintWriter out = response.getWriter();
+        out.print(respMessage);
+        out.close();
+        
     }
 
     /**
