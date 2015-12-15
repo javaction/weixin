@@ -5,8 +5,10 @@
 package com.weixin.message.servlet;
 
 import com.weixin.message.util.HttpUtil;
+import com.weixin.util.LogManager;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -18,6 +20,8 @@ import net.sf.json.JSONObject;
  * @author Administrator
  */
 public class Oauth2Servlet extends HttpServlet {
+    
+    private static final Logger logger = LogManager.getLogger(Oauth2Servlet.class);
     
     //获取code后，请求以下链接获取access_token
     public static String getAccessTokenUrl =     
@@ -95,6 +99,9 @@ public class Oauth2Servlet extends HttpServlet {
         JSONObject jsonObject = JSONObject.fromObject(json);
         String accessToken = jsonObject.getString("access_token");
         String openId = jsonObject.getString("openid");
+        
+        logger.info("----accessToken---:"+accessToken);
+        logger.info("----openId---:"+openId);
         
         getUserInfo = getUserInfo.replace("ACCESS_TOKEN", accessToken);
         getUserInfo = getUserInfo.replace("OPENID", openId);

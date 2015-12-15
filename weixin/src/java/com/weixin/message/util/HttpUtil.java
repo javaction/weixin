@@ -129,7 +129,7 @@ public class HttpUtil {
             e.printStackTrace();
             logger.severe("https request error:{}"+e.getMessage());
         } 
-               
+        
         return null;
     }
     
