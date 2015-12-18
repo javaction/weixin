@@ -10,20 +10,22 @@ package com.weixin.message.bean;
  */
 public class Button {
     
-    private String buttonName; //按钮名称
+    private String name; //按钮名称
 
     /**
-     * @return the buttonName
+     * @return the name
      */
-    public String getButtonName() {
-        return buttonName;
+    public String getName() {
+        return name;
     }
 
     /**
-     * @param buttonName the buttonName to set
+     * @param name the name to set
      */
-    public void setButtonName(String buttonName) {
-        this.buttonName = buttonName;
+    public void setName(String name) {
+        this.name = name;
     }
+
+    
     
 }

@@ -4,8 +4,11 @@
  */
 package com.weixin.message.servlet;
 
+import com.weixin.message.bean.AccessToken;
 import com.weixin.message.util.SignUtil;
+import com.weixin.message.util.WeixinUtil;
 import com.weixin.service.CrazyService;
+import com.weixin.service.MenuService;
 import com.weixin.util.LogManager;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -22,16 +25,7 @@ import javax.servlet.http.HttpServletResponse;
 public class CrazyServlet extends HttpServlet {
     private static final Logger logger = LogManager.getLogger(CrazyServlet.class);
     private static final long serialVersionUID = 1L;
-    /**
-     * Processes requests for both HTTP
-     * <code>GET</code> and
-     * <code>POST</code> methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
+    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -51,19 +45,10 @@ public class CrazyServlet extends HttpServlet {
         }
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP
-     * <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
+    
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException {  
         //微信加密签名
         String signature = request.getParameter("signature");
         //获取时间戳
@@ -86,17 +71,10 @@ public class CrazyServlet extends HttpServlet {
         }  
         out.close();
         out = null;
+        
     }
 
-    /**
-     * Handles the HTTP
-     * <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
+    
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -113,13 +91,19 @@ public class CrazyServlet extends HttpServlet {
         out.print(respMessage);
         out.close();
         
+             
+        //获取access_token //测试ok //使用 httpRequest 则不可以。始终报自定义类（MyX509TrustManager）的错误。
+        String appid = "wxd68a456655aa5fd9";
+        String secret = "d4624c36b6795d1d99dcf0547af5443d";
+       // AccessToken accessToken = WeixinUtil.getAccessToken(appid, secret); 
+        AccessToken accessToken = WeixinUtil.getAccessToken(appid, secret);
+        
+        int i = WeixinUtil.createMenu(MenuService.getMenu(), accessToken.getAccess_token());
+        
+//        logger.info()
+            
     }
 
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
     @Override
     public String getServletInfo() {
         return "Short description";

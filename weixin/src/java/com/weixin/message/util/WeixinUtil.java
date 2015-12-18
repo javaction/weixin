@@ -5,6 +5,7 @@
 package com.weixin.message.util;
 
 import com.weixin.message.bean.AccessToken;
+import com.weixin.message.bean.Menu;
 import com.weixin.util.LogManager;
 import java.util.logging.Logger;
 import net.sf.json.JSONObject;
@@ -19,6 +20,8 @@ public class WeixinUtil {
     //获取access_token的url
     public static String get_access_token_url = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=APPID&secret=APPSECRET";
     
+    //菜单创建
+    public static String menu_create_url = " https://api.weixin.qq.com/cgi-bin/menu/create?access_token=ACCESS_TOKEN";
     
     /**
      * 获取access_token // getUrl
@@ -45,6 +48,7 @@ public class WeixinUtil {
             e.printStackTrace();
             logger.info("获取token失败 errcode:{} errmsg:{}");
         }
+        logger.info("--获取的access_token--:"+accessToken.getAccess_token());
         return accessToken;
     }
     
@@ -73,9 +77,45 @@ public class WeixinUtil {
             e.printStackTrace();
             logger.info("获取token失败 errcode:{} errmsg:{}");
         }
+        logger.info("--获取的access_token11111111--:"+accessToken.getAccess_token());
         return accessToken;
     }
     
+    /**
+     * 创建菜单
+     * @param menu
+     * @param accessToken
+     * @return 
+     */
+    public static int createMenu(Menu menu, String accessToken){
+        logger.info("----createMenu---");
+        int result = 0;
+        try {
+            //拼接穿件菜单的url
+            String createMenuUrl = menu_create_url.replace("ACCESS_TOKEN", accessToken);
+            
+            //将Menu对象转换成json字符串
+            String menuJsonStr = JSONObject.fromObject(menu).toString();
+            // {"errcode":0,"errmsg":"ok"}
+            String createMenuJsonStr = HttpUtil.getUrl(menuJsonStr);
+            JSONObject createMenuJson = JSONObject.fromObject(createMenuJsonStr);
+            if(null != createMenuJson){
+                if("0".equals(createMenuJson.getString("errcode"))){
+                    result = Integer.valueOf(createMenuJson.getString("errcode"));
+                    logger.info("---菜单创建成功--");
+                }else{
+                    result = Integer.valueOf(createMenuJson.getString("errcode"));
+                    logger.info("----菜单创建失败----");
+                }
+                
+            }
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+        return result;
+    }
 
     
 //    public static void main(String ageString[]){

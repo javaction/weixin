@@ -38,6 +38,8 @@ public class CrazyService {
             //消息类型
             String msgType = requestMap.get("MsgType");
             
+            String content = requestMap.get("Content");
+            
             //回复文本消息
             TextMessage textMessage = new TextMessage();
             textMessage.setToUserName(toUserName);
@@ -58,7 +60,8 @@ public class CrazyService {
             
             //文本消息
             if(msgType.equals(MessageUtil.REQ_MESSAGE_TYPE_TEXT)){
-                respContent = "你发送的是文本消息。";
+//                respContent = "你发送的是文本消息。";
+                respContent = content;
             }
             else if(msgType.equals(MessageUtil.REQ_MESSAGE_TYPE_IMAGE)){
                 respContent = "你发送的是图片消息。";
@@ -96,6 +99,7 @@ public class CrazyService {
             }
             
             textMessage.setContent(respContent);
+//            textMessage
             respMessage = MessageUtil.textMessageToXml(textMessage);
             logger.info("---------respContent:"+respContent);
         } catch (Exception e) {

@@ -4,8 +4,10 @@
  */
 package com.weixin.message.util;
 
+import com.weixin.util.LogManager;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
+import java.util.logging.Logger;
 import javax.net.ssl.X509TrustManager;
 
 /**
@@ -13,20 +15,21 @@ import javax.net.ssl.X509TrustManager;
  * @author Administrator
  */
 public class MyX509TrustManager implements X509TrustManager{
-
+    private static final Logger logger = LogManager.getLogger(MyX509TrustManager.class);
+    
     @Override
     public void checkClientTrusted(X509Certificate[] xcs, String string) throws CertificateException {
-        throw new UnsupportedOperationException("Not supported yet.");
+        throw new UnsupportedOperationException("Not supported yet11111.");       
     }
 
     @Override
     public void checkServerTrusted(X509Certificate[] xcs, String string) throws CertificateException {
-        throw new UnsupportedOperationException("Not supported yet.");
+        throw new UnsupportedOperationException("Not supported yet22222.");
     }
 
     @Override
     public X509Certificate[] getAcceptedIssuers() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        throw new UnsupportedOperationException("Not supported yet33333.");
     }
     
     
