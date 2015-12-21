@@ -68,7 +68,7 @@ public class CrazyServlet extends HttpServlet {
         if(SignUtil.checkSignature(signature, timestamp, nonce)){
             System.out.println("----echostr:"+echostr);
             out.print(echostr);
-        }  
+        }    
         out.close();
         out = null;
         
@@ -97,10 +97,10 @@ public class CrazyServlet extends HttpServlet {
         String secret = "d4624c36b6795d1d99dcf0547af5443d";
        // AccessToken accessToken = WeixinUtil.getAccessToken(appid, secret); 
         AccessToken accessToken = WeixinUtil.getAccessToken(appid, secret);
-        
+      //  AccessToken accessToken = WeixinUtil.getAccessToken1(appid, secret);//这种写法不对。
+        //本来是想创建自定义菜单，但是写在这里，不对。
         int i = WeixinUtil.createMenu(MenuService.getMenu(), accessToken.getAccess_token());
         
-//        logger.info()
             
     }
 

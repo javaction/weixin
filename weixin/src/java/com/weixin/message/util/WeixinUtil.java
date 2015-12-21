@@ -82,6 +82,37 @@ public class WeixinUtil {
     }
     
     /**
+     *  获取accesstoken，根据刘峰博客中的httprequest2方法
+     * @param appid
+     * @param secret
+     * @return 
+     */
+    public static AccessToken getAccessToken2(String appid, String secret){
+        logger.info("----WeixinUtil.getAccessToken2()----");
+        AccessToken accessToken = null;
+        
+        try {
+            String requestUrl = get_access_token_url.replace("APPID", appid).replace("APPSECRET", secret);
+            
+            JSONObject jsonObject = HttpUtil.httpRequest2(requestUrl,"GET", null);
+           // JSONObject jsonObject = JSONObject.fromObject(accessTokenJsonStr);
+            if(null != jsonObject){
+                accessToken = new AccessToken();
+                accessToken.setAccess_token(jsonObject.getString("access_token"));
+                accessToken.setExpires_in(Long.valueOf(jsonObject.getString("expires_in")));               
+            }
+            
+        } catch (Exception e) {           
+            e.printStackTrace();
+           // logger.info("获取token失败 errcode:{} errmsg:{}");
+        }
+      //  logger.info("--获取的access_token11111111--:"+accessToken.getAccess_token());
+        return accessToken;
+    }
+    
+    
+    
+    /**
      * 创建菜单
      * @param menu
      * @param accessToken
@@ -96,10 +127,14 @@ public class WeixinUtil {
             
             //将Menu对象转换成json字符串
             String menuJsonStr = JSONObject.fromObject(menu).toString();
-            // {"errcode":0,"errmsg":"ok"}
-            String createMenuJsonStr = HttpUtil.getUrl(menuJsonStr);
-            JSONObject createMenuJson = JSONObject.fromObject(createMenuJsonStr);
+            System.out.println("menuJsonStr---："+menuJsonStr);
+            
+//            String createMenuJsonStr = HttpUtil.getUrl(menuJsonStr);
+            JSONObject createMenuJson = HttpUtil.httpRequest2(createMenuUrl, "POST", menuJsonStr);
+            
+//            JSONObject createMenuJson = JSONObject.fromObject(createMenuJsonStr);
             if(null != createMenuJson){
+                System.out.println("---createMenuJson-----"+createMenuJson);
                 if("0".equals(createMenuJson.getString("errcode"))){
                     result = Integer.valueOf(createMenuJson.getString("errcode"));
                     logger.info("---菜单创建成功--");

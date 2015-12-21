@@ -5,7 +5,7 @@
 package com.weixin.message.bean;
 
 /**
- *
+ * 复杂按钮（父按钮）//包含name 、 sub_button数组
  * @author Administrator
  */
 public class ComplexButton extends Button{

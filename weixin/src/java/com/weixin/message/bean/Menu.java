@@ -10,21 +10,23 @@ package com.weixin.message.bean;
  */
 public class Menu {
     
-    private Button[] menu; //菜单中含有的button按钮
+    private Button[] button; //菜单中含有的button按钮
 
     /**
-     * @return the menu
+     * @return the button
      */
-    public Button[] getMenu() {
-        return menu;
+    public Button[] getButton() {
+        return button;
     }
 
     /**
-     * @param menu the menu to set
+     * @param button the button to set
      */
-    public void setMenu(Button[] menu) {
-        this.menu = menu;
+    public void setButton(Button[] button) {
+        this.button = button;
     }
+
+   
     
     
     
