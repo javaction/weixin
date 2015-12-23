@@ -24,32 +24,32 @@ public class MenuService {
         ViewButton vb11 = new ViewButton();
         vb11.setName("三级11/::)");
         vb11.setType("view");
-        vb11.setUrl("http://www.sojson.com/");
-        
+        vb11.setUrl("http://tieba.baidu.com/");
+          
         ViewButton vb12 = new ViewButton();
         vb12.setName("三级22");
         vb12.setType("view");
-        vb12.setUrl("http://www.sojson.com/");
+        vb12.setUrl("http://tieba.baidu.com/");
         
         ViewButton vb21 = new ViewButton();
         vb21.setName("三级21");
         vb21.setType("view");
-        vb21.setUrl("http://www.sojson.com/");
+        vb21.setUrl("http://tieba.baidu.com/");
         
         ViewButton vb22 = new ViewButton();
         vb22.setName("三级22");
         vb22.setType("view");
-        vb22.setUrl("http://www.sojson.com/");
+        vb22.setUrl("http://tieba.baidu.com/");
         
         ViewButton vb31 = new ViewButton();
         vb31.setName("三级31");
         vb31.setType("view");
-        vb31.setUrl("http://www.sojson.com/");
+        vb31.setUrl("http://tieba.baidu.com/");
         
         ViewButton vb32 = new ViewButton();
         vb32.setName("三级32");
         vb32.setType("view");
-        vb32.setUrl("http://www.sojson.com/");
+        vb32.setUrl("http://tieba.baidu.com/");
         
         //创建一级菜单
         ComplexButton cb1 = new ComplexButton();

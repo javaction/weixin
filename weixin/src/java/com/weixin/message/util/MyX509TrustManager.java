@@ -26,7 +26,7 @@ public class MyX509TrustManager implements X509TrustManager{
     }  
   
     public X509Certificate[] getAcceptedIssuers() {  
-        logger.info("ccccccccccc");
+        logger.info("ccccccccccc");// 先前，直接使用的ide提示，出了错，现在ok了
         return null;  
     }  
     

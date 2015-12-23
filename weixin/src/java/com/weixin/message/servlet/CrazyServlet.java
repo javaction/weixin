@@ -92,14 +92,18 @@ public class CrazyServlet extends HttpServlet {
         out.close();
         
              
-//        //获取access_token //测试ok //使用 httpRequest 则不可以。始终报自定义类（MyX509TrustManager）的错误。
-//        String appid = "wxd68a456655aa5fd9";
-//        String secret = "d4624c36b6795d1d99dcf0547af5443d";
-//       // AccessToken accessToken = WeixinUtil.getAccessToken(appid, secret); 
-//        AccessToken accessToken = WeixinUtil.getAccessToken(appid, secret);
-//      //  AccessToken accessToken = WeixinUtil.getAccessToken1(appid, secret);//这种写法不对。
-//        //本来是想创建自定义菜单，但是写在这里，不对。
-//        int i = WeixinUtil.createMenu(MenuService.getMenu(), accessToken.getAccess_token());
+        //获取access_token //测试ok //使用 httpRequest 则不可以。始终报自定义类（MyX509TrustManager）的错误。
+        String appid = "wxd68a456655aa5fd9";
+        String secret = "d4624c36b6795d1d99dcf0547af5443d";
+ 
+        AccessToken accessToken = WeixinUtil.getAccessToken(appid, secret);
+      //  AccessToken accessToken = WeixinUtil.getAccessToken1(appid, secret);//这种写法不对。
+        /*
+         * 1.20151223之前，先前认为将自定义菜单写到这里不对，其实是我的证书信任管理器（用于https请求）--MyX509TrustManager 错了。
+         * 2.20151223pm:将自定义菜单写在此处，用于实时更新菜单，也方便测试
+         */
+        
+        int i = WeixinUtil.createMenu(MenuService.getMenu(), accessToken.getAccess_token());
         
             
     }
