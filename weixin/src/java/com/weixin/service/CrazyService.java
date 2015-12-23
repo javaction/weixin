@@ -63,8 +63,8 @@ public class CrazyService {
                 respContent = "首哥不发红包吗，你好意思？";
             }
             else if(msgType.equals(MessageUtil.REQ_MESSAGE_TYPE_IMAGE)){
-                respContent = "你发送的是图片消息,还需要再处理,才能和你对话..";
-                
+                //respContent = "你发送的是图片消息,还需要再处理,才能和你对话..";
+                respContent = "<a href = \"http://tieba.baidu.com/\" >随便一个链接吧，以后再补..</a>";
             }
             
             else if(msgType.equals(MessageUtil.REQ_MESSAGE_TYPE_LOCATION)){
