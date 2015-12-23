@@ -22,7 +22,7 @@ public class MenuService {
 
         //先创建第三级菜单按钮
         ViewButton vb11 = new ViewButton();
-        vb11.setName("三级11");
+        vb11.setName("三级11/::)");
         vb11.setType("view");
         vb11.setUrl("http://www.sojson.com/");
         
@@ -53,7 +53,7 @@ public class MenuService {
         
         //创建一级菜单
         ComplexButton cb1 = new ComplexButton();
-        cb1.setName("梁超林");
+        cb1.setName("笑哈哈");
         cb1.setSub_button(new Button[]{vb11,vb12});
         
         ComplexButton cb2 = new ComplexButton();

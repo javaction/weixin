@@ -29,10 +29,10 @@ public class CrazyService {
             //xml请求解析
             Map<String,String> requestMap = MessageUtil.parseXml(request);
             
-            //发送方账号（open_id）
+            //发送方账号（open_id）ToUserName
             String fromUserName = requestMap.get("FromUserName");
             
-            //开发者微信号（公众账号）
+            //开发者微信号（公众账号）FromUserName
             String toUserName = requestMap.get("ToUserName");
             
             //消息类型
@@ -42,8 +42,8 @@ public class CrazyService {
             
             //回复文本消息
             TextMessage textMessage = new TextMessage();
-            textMessage.setToUserName(toUserName);
-            textMessage.setFromUserName(fromUserName);
+            textMessage.setToUserName(fromUserName);
+            textMessage.setFromUserName(toUserName);
             textMessage.setCreateTime(new Date().getTime());
             textMessage.setMsgType(MessageUtil.RESP_MESSAGE_TYPE_TEXT);
             textMessage.setMsgId(0);
@@ -60,11 +60,10 @@ public class CrazyService {
             
             //文本消息
             if(msgType.equals(MessageUtil.REQ_MESSAGE_TYPE_TEXT)){
-//                respContent = "你发送的是文本消息。";
-                respContent = content;
+                respContent = "首哥不发红包吗，你好意思？";
             }
             else if(msgType.equals(MessageUtil.REQ_MESSAGE_TYPE_IMAGE)){
-                respContent = "你发送的是图片消息。";
+                respContent = "你发送的是图片消息,还需要再处理,才能和你对话..";
                 
             }
             
@@ -77,7 +76,7 @@ public class CrazyService {
             }
             
             else if(msgType.equals(MessageUtil.REQ_MESSAGE_TYPE_VOICE)){
-                respContent = "你发送的是音频消息。";
+                respContent = "你发声音我也听不见，哈哈哈..";
             }
             
             //事件推送
@@ -91,17 +90,17 @@ public class CrazyService {
                 //取消订阅
                 else if(eventType.equals(MessageUtil.EVENT_TYPE_UNSUBSCRIBE)){
                     //取消订阅号，用户收不到公众号发送的消息，因此不需要回复消息
+                    respContent = "";
                 }
                 //自定义菜单点击事件
                 else if(eventType.equals(MessageUtil.EVENT_TYPE_CLICK)){
                     //自定义菜单权没有开放，暂不处理该类消息
+                    respContent = "";
                 }
             }
             
             textMessage.setContent(respContent);
-//            textMessage
             respMessage = MessageUtil.textMessageToXml(textMessage);
-            logger.info("---------respContent:"+respContent);
         } catch (Exception e) {
             e.printStackTrace();
         }
