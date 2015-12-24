@@ -69,7 +69,7 @@ public class MenuService {
         
         String menuJsonStr = JSONObject.fromObject(menu).toString();
         
-        logger.info("菜单的json:"+menuJsonStr);
+//        logger.info("菜单的json:"+menuJsonStr);
         return menu;
     }
     

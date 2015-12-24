@@ -9,11 +9,11 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>勿忘初心 方得始终 外圆内方 知行合一</title>
     </head>
     <body>
-        <h1>Hello World!十四班的同学</h1>
-        <h3>
+        <h1>Hello World!</h1>
+        <h3 style="color: skyblue">
             从我的小窗/<br>
             飞出一群鸽子/<br>
             在那乌云盛开的夜里---/<br>
@@ -28,7 +28,7 @@
             一圈一圈/<br>
             把水珠喷着雾撒向海滩/<br>
             我从未想过要失去/<br>
-            要么埋在草里，为枯跟所掩/<br>
+            要么埋在草里，为枯根所掩/<br>
             要么浮在云端，和着眼泪/<br>
             爬满大地的脸<br>
 

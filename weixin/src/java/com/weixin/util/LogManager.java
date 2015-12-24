@@ -7,7 +7,7 @@ package com.weixin.util;
 import java.util.logging.Logger;
 
 /**
- *
+ * 
  * @author Administrator
  */
 public class LogManager {

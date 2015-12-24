@@ -10,6 +10,8 @@ import com.thoughtworks.xstream.io.HierarchicalStreamWriter;
 import com.thoughtworks.xstream.io.xml.PrettyPrintWriter;
 import com.thoughtworks.xstream.io.xml.XppDriver;
 import com.weixin.message.bean.ImageMessage;
+import com.weixin.message.bean.Item;
+import com.weixin.message.bean.NewsMessage;
 import com.weixin.message.bean.TextMessage;
 import java.io.InputStream;
 import java.io.Writer;
@@ -154,7 +156,18 @@ public class MessageUtil {
     
     
     //此处还有其他的将 各种类型的消息 转换成对应的xml数据的方法
-    
+    /**
+     * 将 图文消息 转换成 xml
+     * @param newsMessage
+     * @return 
+     */
+    public static String newsMessageToXml(NewsMessage newsMessage){
+        
+        xstream.alias("xml", newsMessage.getClass());
+        //注意：将对应的类在xml文件中对应正确的标签
+        xstream.alias("item", new Item().getClass());
+        return xstream.toXML(newsMessage);
+    }
     
     
     /**
