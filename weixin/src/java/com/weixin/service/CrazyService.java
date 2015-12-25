@@ -5,6 +5,8 @@
 package com.weixin.service;
 
 import com.weixin.message.bean.Item;
+import com.weixin.message.bean.MusicMessage;
+import com.weixin.message.bean.Music;
 import com.weixin.message.bean.NewsMessage;
 import com.weixin.message.bean.TextMessage;
 import com.weixin.message.util.MessageUtil;
@@ -63,7 +65,7 @@ public class CrazyService {
             
             //文本消息
             if(msgType.equals(MessageUtil.REQ_MESSAGE_TYPE_TEXT)){
-                respContent = "首哥不发红包吗，你好意思？";
+                respContent = "[勿忘初心\n方得始终\n外圆内方\n知行合一]\n首哥，你真是猪头,^(*￣(oo)￣)^...";
                 
                 //默认回复文本消息
                 textMessage.setContent(respContent);
@@ -217,6 +219,45 @@ public class CrazyService {
                     respMessage = MessageUtil.newsMessageToXml(newsMessage);
                 
                 }
+                else if("6".equals(content)){
+                    //回复 6（音乐），给用户回复音乐文件
+                    MusicMessage musicMessage = new MusicMessage();
+                    musicMessage.setToUserName(fromUserName);
+                    musicMessage.setFromUserName(toUserName);
+                    musicMessage.setCreateTime(new Date().getTime());
+                    musicMessage.setMsgType(MessageUtil.RESP_MESSAGE_TYPE_MUSIC);
+                    
+                    //关于回复音乐消息-
+                    /*
+                     * 关于回复音乐消息，具体参见博文中介绍--需后续完成
+                     */
+                    Music music = new Music();  
+                    music.setTitle("音乐标题");
+                    music.setDescription("音乐描述...");
+                    music.setMusicURL("http://javactive.tunnel.qydev.com/weixin/music/mus1.mp3");
+                    music.setHQMusicUrl("http://javactive.tunnel.qydev.com/weixin/music/mus1.mp3");
+                    //music.setThumbMediaId("http://javactive.tunnel.qydev.com/weixin/image/dw3.jpg");
+                    
+                    musicMessage.setMusic(music);
+                    respMessage = MessageUtil.musicMessageToXml(musicMessage);
+                    
+//                    String str = "<xml>"
+//                            + "<ToUserName>ow4JdwUaJi3v4YLvqSqtv88dJB68</ToUserName>"
+//                            + "<FromUserName>gh_0015044582a8</FromUserName>"
+//                            + "<CreateTime>1451009751936</CreateTime>"
+//                            + "<MsgType>music</MsgType>"
+//                            + "<Music>"
+//                            + "<Title>音乐标题</Title>"
+//                            + "<Description>音乐描述</Description>"
+//                            + "<MusicUrl>http://javactive.tunnel.qydev.com/weixin/music/mus1.mp3</MusicUrl>"
+//                            + "<HQMusicUrl>http://javactive.tunnel.qydev.com/weixin/music/mus1.mp3</HQMusicUrl>"
+//                            + "<ThumbMediaId>http://javactive.tunnel.qydev.com/weixin/image/dw3.jpg</ThumbMediaId>"
+//                            + "</Music>"
+//                            + "</xml>";
+//                    respMessage = str;
+                    
+                }
+                
                 
             }
             else if(msgType.equals(MessageUtil.REQ_MESSAGE_TYPE_IMAGE)){

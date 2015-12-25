@@ -11,6 +11,8 @@ import com.thoughtworks.xstream.io.xml.PrettyPrintWriter;
 import com.thoughtworks.xstream.io.xml.XppDriver;
 import com.weixin.message.bean.ImageMessage;
 import com.weixin.message.bean.Item;
+import com.weixin.message.bean.MusicMessage;
+import com.weixin.message.bean.Music;
 import com.weixin.message.bean.NewsMessage;
 import com.weixin.message.bean.TextMessage;
 import java.io.InputStream;
@@ -169,13 +171,24 @@ public class MessageUtil {
         return xstream.toXML(newsMessage);
     }
     
+    /**
+     * 将 音乐消息 转换成 xml
+     * @param musicMessage
+     * @return 
+     */
+    public static String musicMessageToXml(MusicMessage musicMessage){
+        
+        xstream.alias("xml", musicMessage.getClass());
+       // xstream.alias("Music", new Music().getClass());
+        return xstream.toXML(musicMessage);
+    }
     
     /**
      * 扩展xstream，使其支持CDATA块
      */
     private static XStream xstream = new XStream(new XppDriver(){
         public HierarchicalStreamWriter creatWriter(Writer out){
-            return new PrettyPrintWriter(out){
+            return new PrettyPrintWriter(out){   
                 //对所有的xml节点都增加CDATA标志
                 boolean cdata = true;
                 

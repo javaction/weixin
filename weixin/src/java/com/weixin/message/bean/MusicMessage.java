@@ -4,28 +4,30 @@
  */
 package com.weixin.message.bean;
 
+import com.weixin.message.bean.news.BaseMessage1;
+
 /**
  * 音乐消息类
  * @author Administrator
  */
-public class MusicMessage extends BaseMessage{
+public class MusicMessage extends BaseMessage1{
     
-    private Music music;
+    private Music Music;
 
     /**
-     * @return the music
+     * @return the Music
      */
     public Music getMusic() {
-        return music;
+        return Music;
     }
 
     /**
-     * @param music the music to set
+     * @param Music the Music to set
      */
-    public void setMusic(Music music) {
-        this.music = music;
+    public void setMusic(Music Music) {
+        this.Music = Music;
     }
-    
-    
+
+   
     
 }

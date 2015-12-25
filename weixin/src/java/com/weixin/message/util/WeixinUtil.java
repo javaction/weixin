@@ -48,7 +48,7 @@ public class WeixinUtil {
             e.printStackTrace();
             logger.info("获取token失败 errcode:{} errmsg:{}");
         }
-       // logger.info("--获取的access_token--:"+accessToken.getAccess_token());
+        logger.info("--获取的access_token--:"+accessToken.getAccess_token());
         return accessToken;
     }
     
