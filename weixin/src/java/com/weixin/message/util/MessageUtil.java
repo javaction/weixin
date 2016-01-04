@@ -113,8 +113,8 @@ public class MessageUtil {
         
         //从request中取得输入流
         InputStream inputStream = request.getInputStream();
-        //读取输入流
-        SAXReader reader = new SAXReader();
+        //读取输入流  
+        SAXReader reader = new SAXReader();  
         Document document = reader.read(inputStream);
         //得到xml根元素  
         Element root = document.getRootElement();
@@ -182,6 +182,23 @@ public class MessageUtil {
        // xstream.alias("Music", new Music().getClass());
         return xstream.toXML(musicMessage);
     }
+    
+    /**
+     * 获取点播歌曲的提示信息，用于回复音乐消息时候的提示
+     * @return 
+     */
+    public static String getMusicCue(){
+        StringBuilder sb = new StringBuilder();
+        sb.append("歌曲点播").append("\n");
+        sb.append("回复\t歌曲+歌曲名称").append("\n");
+        sb.append("如：歌曲兄妹").append("\n");
+        sb.append("也可以如：歌曲兄妹@陈奕迅").append("\n");
+        sb.append("回复‘？’返回主菜单选项");
+        //sb.append("--*--*--*--*--*--*--*");
+        
+        return sb.toString();
+    }
+    
     
     /**
      * 扩展xstream，使其支持CDATA块

@@ -14,11 +14,11 @@ public class Music {
     
     private String Description; //音乐描述
     
-    private String MusicURL; //音乐链接
+    private String MusicUrl; //音乐链接
     
     private String HQMusicUrl; //高质量音乐链接，WIFI环境优先使用该链接
     
-    private String ThumbMediaId; //缩略图的媒体id，通过素材管理接口上传多媒体文件，得到的id 
+    private String ThumbMediaId; //缩略图的媒体id，通过素材管理接口上传多媒体文件，得到的id  ThumbMediaId
 
     /**
      * @return the Title
@@ -49,20 +49,6 @@ public class Music {
     }
 
     /**
-     * @return the MusicURL
-     */
-    public String getMusicURL() {
-        return MusicURL;
-    }
-
-    /**
-     * @param MusicURL the MusicURL to set
-     */
-    public void setMusicURL(String MusicURL) {
-        this.MusicURL = MusicURL;
-    }
-
-    /**
      * @return the HQMusicUrl
      */
     public String getHQMusicUrl() {
@@ -88,6 +74,20 @@ public class Music {
      */
     public void setThumbMediaId(String ThumbMediaId) {
         this.ThumbMediaId = ThumbMediaId;
+    }
+
+    /**
+     * @return the MusicUrl
+     */
+    public String getMusicUrl() {
+        return MusicUrl;
+    }
+
+    /**
+     * @param MusicUrl the MusicUrl to set
+     */
+    public void setMusicUrl(String MusicUrl) {
+        this.MusicUrl = MusicUrl;
     }
     
     

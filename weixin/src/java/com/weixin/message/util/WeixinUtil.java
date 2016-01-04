@@ -151,7 +151,7 @@ public class WeixinUtil {
         
         return result;
     }
-
+    
     
 //    public static void main(String ageString[]){
 //        String appid = "wxd68a456655aa5fd9";

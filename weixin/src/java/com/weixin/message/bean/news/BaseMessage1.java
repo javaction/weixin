@@ -13,7 +13,7 @@ public class BaseMessage1 {
     private String ToUserName;
     private String FromUserName;
     private long CreateTime;
-    private String MsgType;
+    private String MsgType;  //MsgType
 
     /**
      * @return the ToUserName

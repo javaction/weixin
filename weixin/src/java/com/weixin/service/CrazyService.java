@@ -220,26 +220,37 @@ public class CrazyService {
                 
                 }
                 else if("6".equals(content)){
-                    //回复 6（音乐），给用户回复音乐文件
-                    MusicMessage musicMessage = new MusicMessage();
-                    musicMessage.setToUserName(fromUserName);
-                    musicMessage.setFromUserName(toUserName);
-                    musicMessage.setCreateTime(new Date().getTime());
-                    musicMessage.setMsgType(MessageUtil.RESP_MESSAGE_TYPE_MUSIC);
+                    /*
+                     * 回复 6（音乐），给用户回复音乐文件
+                     * 当用户回复6时候，给予提示信息（文本消息），用于指导用户如何进行歌曲点播
+                     *  getMusicCue //获取点播歌曲的提示信息，用于回复音乐消息时候的提示
+                     *  
+                     */
+                     respContent = MessageUtil.getMusicCue();
+                     
+                     //回复歌曲点播提示菜单
+                     textMessage.setContent(respContent);
+                     respMessage = MessageUtil.textMessageToXml(textMessage);
+                     
+//                    MusicMessage musicMessage = new MusicMessage();
+//                    musicMessage.setToUserName(fromUserName);
+//                    musicMessage.setFromUserName(toUserName);
+//                    musicMessage.setCreateTime(new Date().getTime());
+//                    musicMessage.setMsgType(MessageUtil.RESP_MESSAGE_TYPE_MUSIC);
                     
                     //关于回复音乐消息-
                     /*
                      * 关于回复音乐消息，具体参见博文中介绍--需后续完成
                      */
-                    Music music = new Music();  
-                    music.setTitle("音乐标题");
-                    music.setDescription("音乐描述...");
-                    music.setMusicURL("http://javactive.tunnel.qydev.com/weixin/music/mus1.mp3");
-                    music.setHQMusicUrl("http://javactive.tunnel.qydev.com/weixin/music/mus1.mp3");
-                    //music.setThumbMediaId("http://javactive.tunnel.qydev.com/weixin/image/dw3.jpg");
-                    
-                    musicMessage.setMusic(music);
-                    respMessage = MessageUtil.musicMessageToXml(musicMessage);
+//                    Music music = new Music();  
+//                    music.setTitle("音乐标题");
+//                    music.setDescription("音乐描述...");
+//                    music.setMusicURL("http://javactive.tunnel.qydev.com/weixin/music/mus1.mp3");
+//                    music.setHQMusicUrl("http://javactive.tunnel.qydev.com/weixin/music/mus1.mp3");
+//                    //music.setThumbMediaId("http://javactive.tunnel.qydev.com/weixin/image/dw3.jpg");
+//                    
+//                    musicMessage.setMusic(music);
+//                    respMessage = MessageUtil.musicMessageToXml(musicMessage);
                     
 //                    String str = "<xml>"
 //                            + "<ToUserName>ow4JdwUaJi3v4YLvqSqtv88dJB68</ToUserName>"
@@ -257,7 +268,53 @@ public class CrazyService {
 //                    respMessage = str;
                     
                 }
-                
+                else if(content.startsWith("歌曲")){
+                    //收到用户的消息以‘歌曲’开头，定义为需要点播歌曲
+                    // 将‘歌曲’2个字及歌曲后面的+、空格、-等特殊符号去掉  
+                    String keyWord = content.replaceAll("^歌曲[\\+ ~!@#%^-_=]?", "");
+                    logger.info("--用户回复的信息---："+keyWord);
+                    if("".equals(keyWord)){
+                        respContent = MessageUtil.getMusicCue();
+                    }
+                    else{  
+                        String songName = null;
+                        String songAuthor = null;
+                        //消息范例（带@）： 歌曲兄妹@陈奕迅
+                        String[] song;
+                        if(keyWord.contains("＠")){
+                            logger.info("---中文@----");
+                            song = keyWord.split("＠");
+                        }else {
+                            song = keyWord.split("@");
+                        
+                        }
+                        logger.info("---song.length："+song.length);
+                        if(song.length == 2){
+                            songName = song[0];
+                            songAuthor = song[1];
+                        }
+                        else if(song.length == 1){
+                            songName = song[0];
+                            songAuthor = "";
+                        }
+                        logger.info("---歌手是："+songAuthor);
+                        Music music = BaiduMusicService.searchMucic(songName, songAuthor);
+                        if(music == null){
+                            respContent = "没找到您要搜索的歌曲..";
+                        }
+                        else{
+                            MusicMessage musicMessage = new MusicMessage();
+                            musicMessage.setToUserName(fromUserName);
+                            musicMessage.setFromUserName(toUserName);
+                            musicMessage.setCreateTime(new Date().getTime());
+                            musicMessage.setMsgType(MessageUtil.RESP_MESSAGE_TYPE_MUSIC);
+                            musicMessage.setMusic(music);
+                            
+                            respMessage = MessageUtil.musicMessageToXml(musicMessage);
+                            
+                        }
+                    }
+                }
                 
             }
             else if(msgType.equals(MessageUtil.REQ_MESSAGE_TYPE_IMAGE)){
@@ -285,7 +342,8 @@ public class CrazyService {
                 if(eventType.equals(MessageUtil.EVENT_TYPE_SUBSCRIBE)){
                     respContent = "欢迎关注！ /:,@-D \n 我会陆续添加一些新的东西，欢迎体验，么么哒../::$"
                             + "\n\n可以选择输入下面的数字，查看更多内容："
-                            + "\n\t1.单图文消息\n\t2.单图文消息（没有图片）\n\t3.多图文消息\n\t4.多图文消息（首条消息无图）\n\t5.多图文消息（末消息无图片）";
+                            + "\n\t1.单图文消息\n\t2.单图文消息（没有图片）\n\t3.多图文消息\n\t4.多图文消息（首条消息无图）\n\t5.多图文消息（末消息无图片）"
+                            + "\n\t6.点播歌曲/:sun";
                     
                     textMessage.setContent(respContent);
                     respMessage = MessageUtil.textMessageToXml(textMessage);

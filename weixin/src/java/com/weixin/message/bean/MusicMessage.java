@@ -13,7 +13,7 @@ import com.weixin.message.bean.news.BaseMessage1;
 public class MusicMessage extends BaseMessage1{
     
     private Music Music;
-
+ 
     /**
      * @return the Music
      */
