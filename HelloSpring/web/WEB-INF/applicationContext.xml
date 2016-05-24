@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans 
+                           http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+                           http://www.springframework.org/schema/aop 
+                           http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
+                           http://www.springframework.org/schema/tx 
+                           http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
+                           http://www.springframework.org/schema/context   
+                           http://www.springframework.org/schema/context/spring-context-4.0.xsd
+                           " 
+       xmlns:context="http://www.springframework.org/schema/context">
+    
+    <!--这个配置-->
+    <!--<bean class="org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor"/>-->
+    <!--在spring的自动装配中，可以选择在根元素上加 default-autowire 属性为所有的bean应用相同的装配策略-->
+        <!--default-autowire="byName">-->
+
+    <!--bean id="propertyConfigurer"
+          class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"
+          p:location="/WEB-INF/jdbc.properties" />
+
+<bean id="dataSource"
+    class="org.springframework.jdbc.datasource.DriverManagerDataSource"
+    p:driverClassName="${jdbc.driverClassName}"
+    p:url="${jdbc.url}"
+    p:username="${jdbc.username}"
+    p:password="${jdbc.password}" /-->
+
+    <!-- ADD PERSISTENCE SUPPORT HERE (jpa, hibernate, etc) -->
+    
+    <!--在spring的核配中注册helloService-->
+<!--    <bean name="helloService" class="service.HelloService"></bean>
+    
+    在 装配 Bean时候，有时会需要指定这个Bean的作用域，采用属性 ：scope
+    <bean id="student" class="bean.Student" scope="">
+        通过构造器注入。我在student类，默认的年龄是18岁，然后又加了一个自定义的构造函数，通过这个标签可以通过构造器注入数据。
+        <constructor-arg value="123"/>
+        <constructor-arg index="" ref="" type="" value=""/>
+    </bean>
+    实例化bean时，执行kaideng()，销毁bean时，执行guandeng()。
+    <bean id="wutai" class="bean.WuTai" init-method="kaideng" destroy-method="guandeng" ></bean>
+    
+    1.注意 bean 的顺序；  
+    <bean id="yueqi" class="bean.YueQi">
+        <property name="yuQiName" value="小提琴"></property>
+    </bean>
+    
+    <bean id="yinyuejia" class="bean.YinYueJia" >
+        <property name="song" value="《小青蛙》"></property>
+        <property name="song"></property>
+        此处现在使用的是一个外部定义的乐器bean。同样，也可以使用一个内部bean来给这个音乐家使用。
+        <property name="yueQi" ref="yueqi"></property>
+    </bean>-->
+    
+<!--    使用spring命名空间装配属性，ok
+    <bean id ="yueqi" class="bean.YueQi" p:yuQiName="钢琴"/>
+    <bean id ="yueqi" class="bean.YueQi"/>
+    <bean id="yinyuejia" class="bean.YinYueJia" p:song="《种太阳》" p:yueQi-ref="yueqi" />-->
+    
+    <!--<bean id="yueqi2" class="bean.YueQi2" p:yuQiName="古筝"/>-->
+    
+<!--    <bean id="onepersonbank" class="bean.OnePersonBank">
+        <property name="yueQiList">
+            <list>
+                <ref bean="yueqi" />
+                <ref bean="yueqi"/>
+                不可以，
+                <value>123</value> 
+            </list>
+        </property>
+    </bean>-->
+    
+    <!--*************备注：为了测试Spring注解自动装配的情况，把先前的配置都注释，并且打开 注解装配支持。************-->
+    
+    <!--spring2.5之后提供的可以�用注解进行装配，默认是关闭的。需要在核配中进行开启-->
+    <!--<context:annotation-config />-->
+    <!--传统xml配置begin-->
+<!--    <bean id="boss" class="bean.atutowired.Boss" >
+        <property name="bossName" value="比尔"></property>
+        <property name="car" ref="car"></property>
+        <property name="office" ref="office"></property>
+    </bean>
+    <bean id="car" class="bean.atutowired.Car">
+        <property name="carName">
+            <value>别克</value>
+        </property>
+        <property name="carPrice">
+            <value>100000</value>
+        </property>
+    </bean>
+    
+    <bean id="office" class="bean.atutowired.Office">
+        <property name="area">
+            <value>120</value>
+        </property>
+        <property name="officeNum">
+            <value>009</value>
+        </property>
+    </bean>-->
+    <!--传统xml配置end-->
+    
+    <!--利用 @Autowired 注解 begin -->
+    <!--使用  @Autowired 注解，需要配置..→  ||--> 
+<!--    <bean class="org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor"></bean>
+    <bean id="boss" class="bean.atutowired.Boss"></bean>
+    
+    <bean id="car" class="bean.atutowired.Car">
+        <property name="carName">
+            <value>别克</value>
+        </property>
+        <property name="carPrice">
+            <value>100000</value>
+        </property>
+    </bean>
+    
+    <bean id="office" class="bean.atutowired.Office">
+        <property name="area">
+            <value>120</value>
+        </property>
+        <property name="officeNum">
+            <value>009</value>
+        </property>
+    </bean>-->
+    <!--利用 @Autowired 注解 end -->
+    
+    <!--测试 @Configuration 和 @Bean   begin -->
+    <!--    <context:component-scan base-package="bean.autobean" >
+        注意下面的两个标签的使用
+                <context:exclude-filter type="" expression=""></context:exclude-filter>
+        <context:include-filter type="" expression=""></context:include-filter>
+    </context:component-scan>-->
+    
+    <!--测试 @Configuration 和 @Bean   end -->
+    <!-- prototype 意思： 原型、雏形、蓝本 --> 
+    
+    <!--在xml中个声明切面，介绍各个标签  begin-->
+    <!--    <aop:config>大部分的AOP配置元素必须在<aop:config>元素的上下文内使用 
+        <aop:aspect ref="">定义切面 
+            <aop:advisor advice-ref=""></aop:advisor>定义aop通知器 
+            <aop:after method="" ></aop:after>定义aop后置通知，不管被通知的方法是否执行成功 
+            <aop:after-returning method=""></aop:after-returning>定义aopafter-returning通知 
+            <aop:after-throwing method=""></aop:after-throwing>定义after-throwing通知 
+            <aop:around method=""></aop:around> 定义aop环绕通知，方法调用前执行一次，方法调用完成，再执行一次 
+            <aop:declare-parents types-matching="" implement-interface="">
+                为被通知的对象引入额外的接口，并透明地实现
+            </aop:declare-parents>
+            <aop:pointcut id="" expression=""></aop:pointcut>定义切点，为什么在单个切面的配置中存在定义切点的情况，还要在这里配置这个呢？原因存在多个相同的切点时候，可以使用，这样避免重复冗余的切点配置。 
+        </aop:aspect>
+    </aop:config>-->
+    <!--在xml中个声明切面，介绍各个标签  end-->
+    
+    <!--以GuanZhong类举例测试切面 begin  -->
+    <bean id="guanzhong" class="bean.aoptest.GuanZhong"></bean>
+    <bean id="yanyuan" class="bean.aoptest.YanYuan"></bean>
+    
+    <aop:config>
+        <aop:aspect ref="guanzhong">
+            <!--           方式一：每个切点单独定义 。        ‘准备马扎’，作为‘演员表演’前执行的切面1
+            <aop:before pointcut="execution(* bean.aoptest.YanYuan.biaoyan(..))" method="takeSeats"/>    
+            ‘关手机’，作为‘演员表演’前执行的切面2    
+            <aop:before pointcut="execution(* bean.aoptest.YanYuan.biaoyan(..))" method="turnOffPhone"/>
+            ‘使劲鼓掌’，作为‘演员表演’，成功后执行的切面3
+            <aop:after-returning pointcut="execution(* bean.aoptest.YanYuan.biaoyan(..))" method="applaud" />
+            ‘退票还钱’，作为‘演员表演’失败后执行的切面4
+            <aop:after-throwing pointcut="execution(* bean.aoptest.YanYuan.biaoyan(..))" method="demandRefund"/>    
+            “观众说”，作为不管怎么样都要执行的切面
+            <aop:after pointcut="execution(* bean.aoptest.YanYuan.biaoyan(..))" method="keng" /> -->
+
+            <!--方式二：相同切点，统一定义 begin -->     
+            <!--            <aop:pointcut id="biaoyan" expression="execution(* bean.aoptest.YanYuan.biaoyan(..))"/>
+            <aop:before pointcut-ref="biaoyan" method="takeSeats"/>
+            <aop:before pointcut-ref="biaoyan" method="turnOffPhone" />
+            <aop:after-returning pointcut-ref="biaoyan" method="applaud"/>
+            <aop:after-throwing pointcut-ref="biaoyan" method="demandRefund"/>
+            <aop:after pointcut-ref="biaoyan" method="keng"/>-->
+            <!--方式二：相同切点，统一定义 end -->      
+            
+            <!--方式三：相同切点，统一定义，这次采用的是 环绕通知的方式 begin -->    
+            <aop:pointcut id="biaoyan" expression="execution(* bean.aoptest.YanYuan.biaoyan(..))"/>
+            <!--在 watchPerformance() 这个通知方法中，将先前的几个通知方法的逻辑都包含进来了，甚至这个方法还能自己处理异常发生时候的问题。-->
+            <aop:around pointcut-ref="biaoyan" method="watchPerformance"/>
+            <!--方式三：相同切点，统一定义，这次采用的是 环绕通知的方式 begin -->           
+        </aop:aspect>
+        
+    </aop:config>
+    <!--以GuanZhong类举例测试切面 end  -->
+    
+    <!--以读心者的举例，测试为通知传递参数 begin -->
+    <!--在本例中使用CGLIB针对类实现代理，增加以下配置，否则报错-->
+    <aop:aspectj-autoproxy proxy-target-class="true" />
+    
+    <bean id="mindReadPerson" class="bean.aoptest.MindReadPerson"></bean>
+    <bean id="thinker" class="bean.aoptest.Thinker"></bean>
+    <aop:config>
+        <aop:aspect ref="mindReadPerson">
+            <aop:pointcut id="thinking" 
+                          expression="execution(* bean.aoptest.Thinker.thinkOfSomething(String)) and args(thoughts)"/>
+            
+            <aop:before pointcut-ref="thinking" method="interceptThoughts" arg-names="thoughts"/>
+        </aop:aspect>
+    </aop:config>
+    <!--以读心者的举例，测试为通知传递参数 end -->
+    
+    <!--通过 切面 实现给  某个对象 增加 新的方法 begin -->
+    <bean id="xiaoming" class="bean.aoptest2.XiaoMing"></bean>
+    <bean id="doSomething" class="bean.aoptest2.DoSomething"></bean>
+
+    <aop:config proxy-target-class="true">
+        <aop:aspect>
+            <aop:declare-parents 
+                types-matching="bean.aoptest2.XiaoMing" 
+                implement-interface="bean.aoptest2.AddInterface"
+                default-impl="bean.aoptest2.DoSomething"/>
+            <!--    相关介绍：types-matching == 之前原始的类 ； implement-interface == 想要添加的功能的接口 ；
+            default-impl == 新功能默认实现的类-->
+        </aop:aspect>
+    </aop:config>
+    
+    <!--通过 切面 实现给  某个对象 增加 新的方法 end -->
+    
+</beans>
