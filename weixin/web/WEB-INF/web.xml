@@ -8,6 +8,14 @@
         <servlet-name>Oauth2Servlet</servlet-name>
         <servlet-class>com.weixin.message.servlet.Oauth2Servlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>JqGridServlet</servlet-name>
+        <servlet-class>com.jqgrid.test.JqGridServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>JqGridServlet002</servlet-name>
+        <servlet-class>com.jqgrid.test.JqGridServlet002</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>CrazyServlet</servlet-name>
         <url-pattern>/CrazyServlet</url-pattern>
@@ -15,6 +23,14 @@
     <servlet-mapping>
         <servlet-name>Oauth2Servlet</servlet-name>
         <url-pattern>/Oauth2Servlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>JqGridServlet</servlet-name>
+        <url-pattern>/JqGridServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>JqGridServlet002</servlet-name>
+        <url-pattern>/JqGridServlet002</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

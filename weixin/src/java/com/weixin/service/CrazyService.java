@@ -268,6 +268,11 @@ public class CrazyService {
 //                    respMessage = str;
                     
                 }
+                else if("测试".equals(content)){
+                    //这个用于测试
+                    
+                
+                }
                 else if(content.startsWith("歌曲")){
                     //收到用户的消息以‘歌曲’开头，定义为需要点播歌曲
                     // 将‘歌曲’2个字及歌曲后面的+、空格、-等特殊符号去掉  

@@ -1,0 +1,15 @@
+
+//json格式数据需要带[] ,如果不带可以自己添加上，价格function判断，添加
+[
+{
+    "username": "admin",
+    "password": "Abc123",
+    "passwordAgain": "Abc123",
+    "email": "ss@123.com",
+    "date": "04/14/2016",
+    "website": "www.baidu.com",
+    "zip": "33245",
+    "comments": ""
+}
+
+]

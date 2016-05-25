@@ -1,0 +1,65 @@
+body{background-color: #f2f2f2;}
+h1{font-style: normal;color: #00b3ee; margin-right: 100px;}
+.content{
+  margin:200px 580px;
+}
+.content button{
+  height:300px;
+  color: #00b3ee;
+  font-size: 22px;
+  border: groove;
+  padding: inherit;
+  cursor:pointer;
+}
+.content.panel{
+  background-color:white;
+  width: 302px;
+  text-align:center;
+  margin: auto;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  border: 1px solid #dddddd;
+  border-radius: 5px;
+}
+.content.panel.group{
+  text-align: left;
+  width: 262px;
+  margin: 1px auto 20px;
+}
+.content.panel.group label{
+  line-height: 30px;
+  font-size: 18px;
+}
+.content.panel.group input{
+  display: block;
+  width: 250px;
+  height: 30px;
+  border: 1px solid #ddd;
+  padding: 1px 1px 1px 10px;
+  font-size: 16px;
+}
+.content.panel.group input:focus{
+  border-left:1px solid #CC865E;
+}
+.content.panel.login button{
+  background-color: transparent;
+  width:3000px;
+}
+.content.panel.login button:hover {
+background-color:white;  color: #CC865E;
+border: 1px solid #CC865E;
+}
+.content.register{
+  text-align: center;
+  margin-top: 20px;
+}
+.content.register button{
+  background-color: transparent;
+  width: 180px;
+}
+.content.register button:hover{
+  background-color:white;
+  color: #466BAF;
+  border:1px solid #466BAF;
+}
+

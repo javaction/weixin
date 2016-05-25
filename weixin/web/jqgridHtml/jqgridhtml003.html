@@ -1,0 +1,152 @@
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>My Third jqGrid Demo</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link href="../css/jqGridCss/ui.jqgrid.css" rel="stylesheet" type="text/css"/>
+        <link href="../css/jqGridCss/jquery-ui.custom.min.css" rel="stylesheet" type="text/css" />
+        <!--<link href="../css/jqGridCss/jquery-ui-1.9.0.custom.css" rel="stylesheet" type="text/css" />-->
+
+        <script type="text/javascript" src="../js/jquery-1.8.2.min.js" ></script>
+        <script type="text/javascript" src="../js/jquery-ui.custom.min.js"></script>
+        <script type="text/javascript" src="../js/jqGridJs/i18n/grid.locale-cn.js"></script>
+        <script type="text/javascript" src="../js/jqGridJs/jquery.jqGrid.min.js"></script>
+    </head>
+    <body>
+        <div>TODO write content</div>
+        <!--这个table是用来显示数据信息的。如果需要在表格上添加一些按钮之类的信息，也需要跟在这个table后面 -->
+        <table id="mytable"></table>
+        <!--下面的这个div是用来显示导航栏信息的，包括：导航按钮兰、页码信息栏、数据记录信息栏-->
+        <div id="mydiv"></div>
+
+        <script type="text/javascript">
+            $(function(){
+                $("#mytable").jqGrid({
+                    url:"../JqGridServlet",
+                    datatype:"json",//从服务器返回的数据类型（表格期望接收的数据类型）。可以使xml，xmlstring,json,local,function
+                    heght:150,//表格高度，可以是像素，数字或百分比
+                    colNames:["编号","姓名","年龄","性别","邮箱","学校","手机号","出生日期"],//放置列名称的数组，必须与colModel大小相同
+                    colModel:[//array  对显示列属性的设置，是个数组对象。
+                        /*常用属性
+                         *  name:列显示的名称；index：传到服务器端用来排序用的列名称；
+                         *  width ：列宽度；align ：对齐方式；sortable ：是否可以排序
+                         */                
+                        {name:"id",index:"id",width:50,sortable:false},
+                        {name:"name",index:"name",width:60,sortable:true},
+                        {name:"age",index:"age",width:40,sortable:true},
+                        {name:"sex",index:"sex",width:40,sortable:true},
+                        {name:"email",index:"email",width:60,sortable:true},
+                        {name:"school",index:"school",width:60,sortable:true},
+                        {name:"phone",index:"phone",width:60,sortable:true},
+                        {name:"birthday",index:"birthday",width:60,sortable:true}
+                    ],
+                    sortname:"id",//默认的排序列的名称。可以是列名称或者一个数字，这个参数会被提交到后台
+                    sortorder:"asc",//排序顺序，升序或者降序
+                    viewrecords:true,//是否显示总记录数
+                    rowNum:10,//在grid上显示记录条数，参数会被自动传到后台。如果此参数设置为10，但后台服务器返回15条记录，那么表格
+                    rowList:[5,10,15],//一个数组用来调整表格显示的记录数，次参数值会替代rowNum参数值传给服务器端。如果为空则不显示，设置格式如：[10,20,30]
+                    pager:"#mydiv",
+                    hidegrid:true, //用于控制表格是显示还是隐藏的按钮控制。true -- 支持表格的显示与隐藏，反之，不支持。
+                    multiselect:true, //定义是否可以多选。true -- 支持多选；false --不支持多选。
+                    multiselectWidth:25, //定义表格支持多选时候，设置这一列的列宽度。
+                    
+                    onSelectRow:function(rowid,status){
+                        // onSelectRow :当选择行时，触发此事件.rowid : 当前行id；status：选择状态。
+                        // alert("我点击了行"+rowid+"---"+status);
+                    },
+                    onCellSelect:function(rowid,iCol,cellcontent,e){
+                        //当点击 单元格 时候触发。
+                        //rowid：当前行id；iCol：当前单元格索引；
+                        //cellcontent：当前单元格内容；e：event对象
+                        // alert("当前行id:"+rowid+"；当前单元格索引："+iCol+"；当前单元格内容："+cellcontent+"；event对象："+e);
+                        
+                        //                        var colModel = $("#mytable").jqGrid('getGridParam','colModel'); // getGridParam ： 参数name ，返回请求的参数信息
+                        //                        var engType = colModel[iCol];
+                        //                        alert(colModel+"--------"+engType);
+                        //----------------------------------------------------------------------------------------------
+                        //getRowData 返回指定行的数据，返回数据类型为array[]，即：name：value，name为colModel中的名称，value为所在行的列的值。
+                        /////如果根据rowid找不到则返回空。
+                        var idd = $("#mytable").jqGrid("getRowData",rowid).id;
+                        //  alert("---"+id);
+                        $.ajax({
+                            type:"post",
+                            //contentType:"application/json;charset=utf-8", // application/x-www-form-urlencoded
+                            // contentType:"application/x-www-form-urlencoded;charset=utf-8", 
+                            url:"../JqGridServlet002",
+                            dataType:"json",
+                            data:JSON.stringify([{ids:idd}]), ///可以自己组装json格式数据
+                            
+                            beforeSend:function(){
+                            },
+                            error:function(){
+                                alert("错了。。");
+                            },success:function(data){
+                                alert("对了。。");
+                                
+                            }
+                             
+                        });
+                         
+                        
+                    },
+                    
+                    jsonReader:{ //jsonReader ：array ，描述json数据格式的数组。
+                        repeatitems:false
+                        //                       root:"rows",
+                        //                       page:"page",//当前页
+                        //                       total:"total",  //总页数
+                        //                       records:"records", // 查询出的记录数
+                        //                       repeatitems:true, //
+                        //                       cell:cell, //当前行的所有单元格
+                        //                       id:"id", //行id
+                        //                       .........（还有很多属性）
+                       
+                    },
+                    /*
+                     * 服务端返回的数据格式：具体看
+                     * 
+                     * {
+                     *  total:"xxx",
+                     *  page:"yyy",
+                     *  records:"zzz",
+                     *  rows:[
+                     *      {},{} --rows存放的数据的集合
+                     *  ]
+                     * }
+                     * 
+                     */
+                    
+                    
+                    pager:"#mydiv",//定义翻页用的导航栏，必须是有效的html元素，翻页工具栏可以放置在html页面任意位置。 //自己测试时显示表格的下部信息，报错刷新，分页查询，等等
+                    caption:"从后台获取数据,本来就会发酸嘛，/(ㄒoㄒ)/~~"//定义表格名称 
+                }).navGrid( '#mydiv',{
+                    edit:false,add:false,del:false,refresh:false,search:false
+                    
+                }).navButtonAdd("#mydiv",{
+                    //自定义按钮
+                    caption:"",
+                    buttonicon:"ui-icon-plus",
+                    onClickButton:function(){
+                        alert("我要新增");
+                    },
+                    position:"last"
+                }).navButtonAdd("#mydiv",{
+                    caption:"",
+                    buttonicon:"ui-icon-refresh",
+                    onClickButton:function(){
+                        alert("我要刷新");
+                    },
+                    position:"last"
+                });
+                
+            });
+            
+            
+        </script>
+
+    </body>
+</html>

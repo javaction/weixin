@@ -5,7 +5,7 @@
 package com.weixin.util;
 
 /**
- * 
+ *  用于一些简单例子的测试1
  * @author Administrator
  */
 public class Test1 {

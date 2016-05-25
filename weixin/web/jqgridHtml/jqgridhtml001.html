@@ -1,0 +1,94 @@
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>First gqGrid Study</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">  
+        <link href="../css/jqGridCss/jquery-ui.custom.min.css" rel="stylesheet" type="text/css"/>
+        <link href="../css/jqGridCss/jquery-ui-1.9.0.custom.css" rel="stylesheet" type="text/css"/>
+        <link href="../css/jqGridCss/ui.jqgrid.css" rel="stylesheet" type="text/css" />
+        
+        <script type="text/javascript" src="../js/jquery-1.8.2.min.js" ></script>
+        <script type="text/javascript" src="../js/jquery-ui.custom.min.js"></script>
+        <script type="text/javascript" src="../js/jqGridJs/i18n/grid.locale-cn.js"></script>
+        <script type="text/javascript" src="../js/jqGridJs/jquery.jqGrid.min.js"></script>
+
+    </head>  
+
+    <body>
+        <div>my first jqGrid demo</div>
+        <table id="gridTable"></table>
+        <div id="gridPager"></div>
+<!--        <div id="pager2"></div>-->
+        <script>
+          //  jQuery.extend(jQuery.jgrid.defaults, { altRows:true });
+            $(function(){
+                $("#gridTable").jqGrid({
+                    datatype: "local", //从服务器返回的数据类型（表格期望接收的数据类型）。可以使xml，xmlstring,json,local,function
+                    height: 250, //表格高度，可以是像素，数字或百分比
+                    colNames:['编号','用户名', '性别', '邮箱', 'QQ','手机号','出生日期'], //放置列名称的数组，必须与colModel大小相同
+                    colModel:[ //array  对显示列属性的设置，是个数组对象。
+                        /*床用属性
+                         *  name:列显示的名称；index：传到服务器端用来排序用的列名称；
+                         *  width ：列宽度；align ：对齐方式；sortable ：是否可以排序
+                         */
+                        {name:'id',index:'id', width:60, sorttype:"int"},
+                        {name:'userName',index:'userName', width:90},
+                        {name:'gender',index:'gender', width:90},
+                        {name:'email',index:'email', width:125,sorttype:"string"},
+                        {name:'QQ',index:'QQ', width:100},                
+                        {name:'mobilePhone',index:'mobilePhone', width:120},                
+                        {name:'birthday',index:'birthday', width:100, sorttype:"date"}                
+                    ],
+                    sortname:'id',//默认的排序列的名称。可以是列名称或者一个数字，这个参数会被提交到后台
+                    sortorder:'asc',//排序顺序，升序或者降序
+                    viewrecords:true, //是否显示总记录数
+                    rowNum:10,//在grid上显示记录条数，参数会被自动传到后台。如果此参数设置为10，但后台服务器返回15条记录，那么表格
+                    rowList:[10,20,30], //一个数组用来调整表格显示的记录数，次参数值会替代rowNum参数值传给服务器端。如果为空则不显示，设置格式如：[10,20,30]
+                    pager:"#gridPager",//定义翻页用的导航栏，必须是有效的html元素，翻页工具栏可以放置在html页面任意位置。 //自己测试时显示表格的下部信息，报错刷新，分页查询，等等
+                    caption: "第一个jqGrid例子" //定义表格名称
+                }).navGrid('#pager2',{edit:false,add:false,del:false});
+                
+               // $("#gridTable").navGrid('#pager2',{edit:true,add:true,del:true});
+                var mydata = [
+                    {id:"1",userName:"polaris",gender:"男",email:"fef@163.com",QQ:"33334444",mobilePhone:"13223423424",birthday:"1985-10-01"},
+                    {id:"2",userName:"李四",gender:"女",email:"faf@gmail.com",QQ:"222222222",mobilePhone:"13223423",birthday:"1986-07-01"},
+                    {id:"3",userName:"王五",gender:"男",email:"fae@163.com",QQ:"99999999",mobilePhone:"1322342342",birthday:"1985-10-01"},
+                    {id:"4",userName:"马六",gender:"女",email:"aaaa@gmail.com",QQ:"23333333",mobilePhone:"132234662",birthday:"1987-05-01"},
+                    {id:"5",userName:"赵钱",gender:"男",email:"4fja@gmail.com",QQ:"22222222",mobilePhone:"1343434662",birthday:"1982-10-01"},
+                    {id:"6",userName:"小毛",gender:"男",email:"ahfi@yahoo.com",QQ:"4333333",mobilePhone:"1328884662",birthday:"1987-12-01"},
+                    {id:"7",userName:"小李",gender:"女",email:"note@sina.com",QQ:"21122323",mobilePhone:"13220046620",birthday:"1985-10-01"},
+                    {id:"8",userName:"小三",gender:"男",email:"oefh@sohu.com",QQ:"242424366",mobilePhone:"1327734662",birthday:"1988-12-01"},
+                    {id:"9",userName:"孙先",gender:"男",email:"76454533@qq.com",QQ:"76454533",mobilePhone:"132290062",birthday:"1989-11-21"},
+                    {id:"10",userName:"小三1",gender:"男",email:"oefh@sohu.com",QQ:"242424366",mobilePhone:"1327734662",birthday:"1988-12-01"},
+                    {id:"11",userName:"小三2",gender:"男",email:"oefh@sohu.com",QQ:"242424366",mobilePhone:"1327734662",birthday:"1988-12-01"},
+                    {id:"12",userName:"小三3",gender:"男",email:"oefh@sohu.com",QQ:"242424366",mobilePhone:"1327734662",birthday:"1988-12-01"},
+                    {id:"13",userName:"小三4",gender:"男",email:"oefh@sohu.com",QQ:"242424366",mobilePhone:"1327734662",birthday:"1988-12-01"},
+                    {id:"14",userName:"小三5",gender:"男",email:"oefh@sohu.com",QQ:"242424366",mobilePhone:"1327734662",birthday:"1988-12-01"},
+                    {id:"15",userName:"小三6",gender:"男",email:"oefh@sohu.com",QQ:"242424366",mobilePhone:"1327734662",birthday:"1988-12-01"},
+                    {id:"16",userName:"小三7",gender:"男",email:"oefh@sohu.com",QQ:"242424366",mobilePhone:"1327734662",birthday:"1988-12-01"},
+                    {id:"17",userName:"小三8",gender:"男",email:"oefh@sohu.com",QQ:"242424366",mobilePhone:"1327734662",birthday:"1988-12-01"},
+                    {id:"18",userName:"小三9",gender:"男",email:"oefh@sohu.com",QQ:"242424366",mobilePhone:"1327734662",birthday:"1988-12-01"},
+                    {id:"19",userName:"小三10",gender:"男",email:"oefh@sohu.com",QQ:"242424366",mobilePhone:"1327734662",birthday:"1988-12-01"}
+                    
+                ];
+                for(var i=0;i<=mydata.length;i++)
+                    /*
+                     * addRowData  根据参数插入一行新的数据
+                     * rowid ： 新行的id；data ：新行的数据；position : 新增行的位置；
+                     * srcrowid ：新增行的参考位置；
+                     * data 数据格式 {name1:value1,name2:value2,name3:value3.。。。} --- nameX是在colModel中指定的名称
+                     */
+                    jQuery("#gridTable").jqGrid('addRowData',i+1,mydata[i]);
+            });  
+            
+        </script>
+
+
+    </body>
+
+
+</html>

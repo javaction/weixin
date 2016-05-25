@@ -1,0 +1,159 @@
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>测试jquery的表单验证插件</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <!--这个css跟页面在一个文件夹下-->
+        <link type="text/css" href="testform1.css" rel="stylesheet" />
+
+        <script type="text/javascript" src="../js/message.js" ></script>
+        <script type="text/javascript" src="../js/jquery-1.8.2.min.js" ></script>
+        <script type="text/javascript" src="../js/jquery.validate.min.js"></script>
+        <script type="text/javascript" src="../js/jquery.validate.messages_cn.js" ></script>
+
+
+    </head>
+    <body>
+        <div style="">TEST FORM</div>
+        <script>
+            //            $().ready(function(){
+            //                $("#from1").validate();
+            //            })
+            //            
+        </script>
+
+
+        <div id="main">
+            <form id ="from1" name="form1" method="post">
+                <table>
+                    <tr>
+                        <td>账号：</td>
+                        <td><input id="name" name ="cname" type="text"/></td>
+                    </tr>
+                    <tr>
+                        <td>密码：</td>
+                        <td><input id="pass" name="cpass" type="password"/></td>
+                    </tr>
+                    <tr>
+                        <td>邮箱：</td>
+                        <td><input id="email" name="ceamail" type="email" /></td>
+                    </tr>
+                    <tr>
+                        <td>性别：</td>
+                        <td>
+                            <input id="sex" type="radio" name="sex" value="man" checked="checked">男
+                            <input id="sex" type="radio" name="sex" value="woman">女
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>爱好：</td>
+                        <td>
+                            <select id="hobby">
+                                <option value="---" selected="selected">请选择城市</option>
+                                <option value="1">北京</option>
+                                <option value="2">广州</option>
+                                <option value="3">深圳</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="submit" id="sub" value="提交"/>
+                            <input type="reset" id="btn" value="重置"/>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+
+
+        <!--本地的-->
+        <script type="text/javascript">
+            $(function(){
+                //                var validate =  
+                $("#from1").validate({
+                    debug: true,
+                    // 校验规则  
+                    rules:{
+                        //////////使用的是name属性，
+                        cname:"required",
+                        //                        pass:"required"
+                        
+                        cpass : {
+                            required : true,
+                            rangelength:[3,10]
+                        }
+                        
+                        //                        email:{
+                        //                            required : true,
+                        //                            minlength : 2
+                        //                        },
+                        //                        sex : "required",
+                        //                        hobby : "required" 
+                    },
+                    
+                    //                    message:{
+                    //                        name:{
+                    //                            required : "必填"
+                    //                        },
+                    //                        pass :{
+                    //                            required : "不能为空"
+                    //                        }
+                    //                                            
+                    //                    },
+                    
+                    submitHandler: function(form){   //表单提交句柄,为一回调函数，带一个参数：form   
+                        alert("-----提交表单");   
+                        alert("---账号："+$("#name").val()); //可以获取
+                        //form.submit();   //提交表单  
+                        
+                        if($("#name").val()!=""){
+                            alert("---登陆成功"); 
+                        }
+                        
+                        /**
+                         * 此处可以正式的获取需要的数据，进行组织必要的数据，然后使用ajax的方式进行操作，在ajax方式这里与其他方式一致
+                         */
+                        //组装json数据
+                        //                        var jsonData = {aa:123,bb:456,cc:789};
+                        //                        $.ajax({
+                        //                            type : "post",
+                        //                            contentType : "application/json; charset=utf-8",
+                        //                            url : "jiekou/woshijiekou", //这里写正式的方法路径
+                        //                            data : JSON.stringify(jsonData),
+                        //                            dataType : "json",
+                        //                            success : function(msg){
+                        //                                // msg 返回信息 ，result 为返回信息中的属性
+                        //                                msg.result = "successed";
+                        //                                if(msg.result == "successed"){
+                        //                                    alert("-----登陆成功");
+                        //                                }else{
+                        //                                    alert("登陆失败-----");
+                        //                                }          
+                        //                            },
+                        //                            error : function(){
+                        //                                
+                        //                            }
+                        //                            
+                        //                        });
+                        
+                    }
+                    
+                    
+                });
+                
+            });
+            
+        </script>
+
+        <!--导入js-->
+        <script src="testform1.js"></script>
+
+
+    </body>
+</html>
+
