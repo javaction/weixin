@@ -33,7 +33,7 @@ public class TestBoss {
 //        System.out.println("===="+tb.getDataByMillis(time));
 
 
-//        ApplicationContext app = new ClassPathXmlApplicationContext("file:D:/activeMQ/ssh2Demo/HelloSpring/web/WEB-INF/applicationContext.xml");
+//        ApplicationContext app = new ClassPathXmlApplicationContext("file:D:/mytestgit/weixin/HelloSpring/web/WEB-INF/applicationContext.xml");
         ApplicationContext app = new ClassPathXmlApplicationContext("file:E:/MyGitHub/weixin/HelloSpring/web/WEB-INF/applicationContext.xml");
         //1.测试传统xml配置 -- ok
 //        Boss boss = app.getBean("boss", Boss.class);

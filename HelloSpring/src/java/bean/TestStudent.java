@@ -24,7 +24,8 @@ public class TestStudent {
     public static void main(String args[]) {
 
         //使用file前缀时，可以使用绝对路径 -- ok
-        ApplicationContext app = new ClassPathXmlApplicationContext("file:D:/activeMQ/ssh2Demo/HelloSpring/web/WEB-INF/applicationContext.xml");
+        ApplicationContext app = new ClassPathXmlApplicationContext("file:D:/mytestgit/weixin/HelloSpring/web/WEB-INF/applicationContext.xml");
+        //  ApplicationContext app = new ClassPathXmlApplicationContext("file:D:/activeMQ/ssh2Demo/HelloSpring/web/WEB-INF/applicationContext.xml");
         //直接使用文件系统下的xml文件配置 -- ok
 //        ApplicationContext app = new FileSystemXmlApplicationContext("D:/activeMQ/ssh2Demo/HelloSpring/web/WEB-INF/applicationContext.xml");
 

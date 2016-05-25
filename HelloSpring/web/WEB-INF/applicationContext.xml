@@ -155,12 +155,12 @@
     <!--在xml中个声明切面，介绍各个标签  end-->
     
     <!--以GuanZhong类举例测试切面 begin  -->
-    <bean id="guanzhong" class="bean.aoptest.GuanZhong"></bean>
+<!--    <bean id="guanzhong" class="bean.aoptest.GuanZhong"></bean>
     <bean id="yanyuan" class="bean.aoptest.YanYuan"></bean>
     
     <aop:config>
         <aop:aspect ref="guanzhong">
-            <!--           方式一：每个切点单独定义 。        ‘准备马扎’，作为‘演员表演’前执行的切面1
+                       方式一：每个切点单独定义 。        ‘准备马扎’，作为‘演员表演’前执行的切面1
             <aop:before pointcut="execution(* bean.aoptest.YanYuan.biaoyan(..))" method="takeSeats"/>    
             ‘关手机’，作为‘演员表演’前执行的切面2    
             <aop:before pointcut="execution(* bean.aoptest.YanYuan.biaoyan(..))" method="turnOffPhone"/>
@@ -169,32 +169,32 @@
             ‘退票还钱’，作为‘演员表演’失败后执行的切面4
             <aop:after-throwing pointcut="execution(* bean.aoptest.YanYuan.biaoyan(..))" method="demandRefund"/>    
             “观众说”，作为不管怎么样都要执行的切面
-            <aop:after pointcut="execution(* bean.aoptest.YanYuan.biaoyan(..))" method="keng" /> -->
+            <aop:after pointcut="execution(* bean.aoptest.YanYuan.biaoyan(..))" method="keng" /> 
 
-            <!--方式二：相同切点，统一定义 begin -->     
-            <!--            <aop:pointcut id="biaoyan" expression="execution(* bean.aoptest.YanYuan.biaoyan(..))"/>
+            方式二：相同切点，统一定义 begin      
+                        <aop:pointcut id="biaoyan" expression="execution(* bean.aoptest.YanYuan.biaoyan(..))"/>
             <aop:before pointcut-ref="biaoyan" method="takeSeats"/>
             <aop:before pointcut-ref="biaoyan" method="turnOffPhone" />
             <aop:after-returning pointcut-ref="biaoyan" method="applaud"/>
             <aop:after-throwing pointcut-ref="biaoyan" method="demandRefund"/>
-            <aop:after pointcut-ref="biaoyan" method="keng"/>-->
-            <!--方式二：相同切点，统一定义 end -->      
+            <aop:after pointcut-ref="biaoyan" method="keng"/>
+            方式二：相同切点，统一定义 end       
             
-            <!--方式三：相同切点，统一定义，这次采用的是 环绕通知的方式 begin -->    
+            方式三：相同切点，统一定义，这次采用的是 环绕通知的方式 begin     
             <aop:pointcut id="biaoyan" expression="execution(* bean.aoptest.YanYuan.biaoyan(..))"/>
-            <!--在 watchPerformance() 这个通知方法中，将先前的几个通知方法的逻辑都包含进来了，甚至这个方法还能自己处理异常发生时候的问题。-->
+            在 watchPerformance() 这个通知方法中，将先前的几个通知方法的逻辑都包含进来了，甚至这个方法还能自己处理异常发生时候的问题。
             <aop:around pointcut-ref="biaoyan" method="watchPerformance"/>
-            <!--方式三：相同切点，统一定义，这次采用的是 环绕通知的方式 begin -->           
+            方式三：相同切点，统一定义，这次采用的是 环绕通知的方式 begin            
         </aop:aspect>
         
-    </aop:config>
+    </aop:config>-->
     <!--以GuanZhong类举例测试切面 end  -->
     
     <!--以读心者的举例，测试为通知传递参数 begin -->
     <!--在本例中使用CGLIB针对类实现代理，增加以下配置，否则报错-->
-    <aop:aspectj-autoproxy proxy-target-class="true" />
+    <!--<aop:aspectj-autoproxy proxy-target-class="true" />-->
     
-    <bean id="mindReadPerson" class="bean.aoptest.MindReadPerson"></bean>
+<!--    <bean id="mindReadPerson" class="bean.aoptest.MindReadPerson"></bean>
     <bean id="thinker" class="bean.aoptest.Thinker"></bean>
     <aop:config>
         <aop:aspect ref="mindReadPerson">
@@ -203,7 +203,7 @@
             
             <aop:before pointcut-ref="thinking" method="interceptThoughts" arg-names="thoughts"/>
         </aop:aspect>
-    </aop:config>
+    </aop:config>-->
     <!--以读心者的举例，测试为通知传递参数 end -->
     
     <!--通过 切面 实现给  某个对象 增加 新的方法 begin -->
@@ -216,11 +216,31 @@
                 types-matching="bean.aoptest2.XiaoMing" 
                 implement-interface="bean.aoptest2.AddInterface"
                 default-impl="bean.aoptest2.DoSomething"/>
-            <!--    相关介绍：types-matching == 之前原始的类 ； implement-interface == 想要添加的功能的接口 ；
+            <!-- 相关介绍：types-matching == 之前原始的类 ； implement-interface == 想要添加的功能的接口 ；
             default-impl == 新功能默认实现的类-->
         </aop:aspect>
     </aop:config>
     
     <!--通过 切面 实现给  某个对象 增加 新的方法 end -->
+    
+    <!--通过注解的方式来创建切面（一般形式 ） begin-->
+    <bean id="guanzhong1" class="bean.aoptest.zhujie1.GuanZhong1"></bean>
+    <bean id="yanyuan1" class="bean.aoptest.zhujie1.YanYuan1"></bean>
+    <!--为了使Spring知道哪个是普通的Bean，哪个是通知，需要如下配置，保证AOP能自动识别。-->
+    <aop:aspectj-autoproxy proxy-target-class="true"/>
+    <!--通过注解的方式来创建切面（一般形式 ） end-->
+    
+    <!--通过注解方式来创建切面 ，给所标注的通知传递参数 begin -->
+    <bean id="mindReadPerson1" class="bean.aoptest.zhujie1.MindReadPerson1"></bean>
+    <bean id="thinker1" class="bean.aoptest.zhujie1.Thinker1"></bean>
+    <aop:aspectj-autoproxy proxy-target-class="true"/>
+    <!--通过注解方式来创建切面 ，给所标注的通知传递参数 end -->
+    
+    <!--通过注解形式来创建 切面 ，标注 引入 begin -->
+    <bean id="doSomething1" class="bean.aoptest2.zhujie1.DoSomething"></bean>
+    <bean id="xiaoMing" class="bean.aoptest2.zhujie1.XiaoMing"></bean>
+    <bean id="zhuJieYinRu" class="bean.aoptest2.zhujie1.ZhuJieYinRu" ></bean> 
+    <aop:aspectj-autoproxy proxy-target-class="true"/>
+    <!--通过注解形式来创建 切面 ，标注 引入 end -->
     
 </beans>

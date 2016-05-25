@@ -15,7 +15,7 @@ public class Test {
 
     public static void main(String args[]) {
 
-        //ApplicationContext app = new ClassPathXmlApplicationContext("file:D:/activeMQ/ssh2Demo/HelloSpring/web/WEB-INF/applicationContext.xml");
+        //ApplicationContext app = new ClassPathXmlApplicationContext("file:D:/mytestgit/weixin/HelloSpring/web/WEB-INF/applicationContext.xml");
         ApplicationContext app = new ClassPathXmlApplicationContext("file:E:/MyGitHub/weixin/HelloSpring/web/WEB-INF/applicationContext.xml");
         //1.
 //        YanYuan yanyuan = app.getBean("yanyuan", YanYuan.class);
