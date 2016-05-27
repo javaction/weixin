@@ -243,4 +243,15 @@
     <aop:aspectj-autoproxy proxy-target-class="true"/>
     <!--通过注解形式来创建 切面 ，标注 引入 end -->
     
+    
+    <!---========================== aop切面完结。数据库连接开始 ========================-->
+    <!--====== 这里需要建立对应的数据库表，具体如何建表，需要根据例子中或者自己设定的情况进行建立 ========-->
+    
+    <bean id="" class="org.springframework.jdbc.core.simple.SimpleJdbcTemplate" >
+        <constructor-arg ref="dataSource" />
+    </bean>
+    
+    
+    
+    
 </beans>
