@@ -463,6 +463,22 @@ zhengze:在这里通过使用@AspectJ注解的形式，将前面的几个xml配置的aop切面的例子重新
  
  ---- SQLSERVER还原数据库失败：错误: 3154
  
+----------------------------------------------------------------------------------------------------
+--关于mysql数据学习应用
+1.使用图形化界面：sqlyog 、 mysql workbench
+2.利用命令行，建立数据库，用户等，参考博客  http://blog.csdn.net/vebasan/article/details/7615413    /////  http://www.2cto.com/database/201506/406212.html
+
+3.mysql 免安装版 配置教程：http://blog.csdn.net/q98842674/article/details/12094777
+ 
+---------------------------------------------------------------------------------------------------- 
+javamail
+
+注意：1.使用163邮箱时候，需要配置 pop3\smtp\imap等
+	  2.配置完成后，163会强制你设置 ‘客户端授权密码’，这也是为了安全考虑。然后在程序的xml文件配置时候，这个邮箱的密码就是你设置的 ‘客户端授权密码’ 。	
+	  3.遇到的相关exception:
+		3.1.javax.mail.AuthenticationFailedException: 530 Error: A secure connection is requiered(such as ssl). More information at http://service.mail.qq.com/cgi-bin/help?id=28 （qq邮箱的问题，暂时未解决）
+		3.2.550 User has no permission （163的问题。需要配置上面的那些..）
+		3.3.javax.mail.AuthenticationFailedException: 535 Error: authentication failed  （163的问题。账户密码不对，一般需要检查你设置的 客户端授权码 是否正确）
 
 -----------------------------------------------------------------------------------------------------
 -----------------------------------------------------------------------------------------------------
@@ -477,6 +493,13 @@ zhengze:在这里通过使用@AspectJ注解的形式，将前面的几个xml配置的aop切面的例子重新
 6.java对于csv文件的读写
 7.对于数据库连接池的配置
 
+8.myeclipse配置需要的jdk
+
+
+9.redis在windows下的简单测试使用（127.0.0.1:6379）
+  redis 介绍和作用，呵呵呵呵呵，没搞明白具体做的工作以及它的优劣势	
+  Spring 与 redis 的整合
+  
 
 前端：
 1.表格插件
