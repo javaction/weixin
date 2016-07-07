@@ -473,14 +473,43 @@ zhengze:在这里通过使用@AspectJ注解的形式，将前面的几个xml配置的aop切面的例子重新
 ---------------------------------------------------------------------------------------------------- 
 javamail
 
+api文档 ：http://www.jspcn.net/htmlnews/1150019680500144.html
+参考博文：http://www.cnblogs.com/java-pan/archive/2012/03/06/javamail.html
+
 注意：1.使用163邮箱时候，需要配置 pop3\smtp\imap等
 	  2.配置完成后，163会强制你设置 ‘客户端授权密码’，这也是为了安全考虑。然后在程序的xml文件配置时候，这个邮箱的密码就是你设置的 ‘客户端授权密码’ 。	
 	  3.遇到的相关exception:
-		3.1.javax.mail.AuthenticationFailedException: 530 Error: A secure connection is requiered(such as ssl). More information at http://service.mail.qq.com/cgi-bin/help?id=28 （qq邮箱的问题，暂时未解决）
+		3.1.javax.mail.AuthenticationFailedException: 530 Error: A secure connection is requiered(such as ssl). More information at http://service.mail.qq.com/cgi-bin/help?id=28 
+				（qq邮箱的问题，这个需要代码的资源文件设置中多加个安全认证，同样的使用javamail使用qq邮箱发送邮箱时候，也需要对pop3等进行开启服务，并使用授权码进行登陆）
 		3.2.550 User has no permission （163的问题。需要配置上面的那些..）
 		3.3.javax.mail.AuthenticationFailedException: 535 Error: authentication failed  （163的问题。账户密码不对，一般需要检查你设置的 客户端授权码 是否正确）
+		
+	  4.现在需要处理的是：将邮件发送结合前端操作；尝试使用aes加解密处理密码的问题；增加邮件的其他功能	
+
+  //////暂记：我的想法是，前端写一个发送邮件的	  
+	  
+	  jauery myeclipse 报错  的调试
+	  
 
 -----------------------------------------------------------------------------------------------------
+tinymce 富文本编辑器 
+
+官方网站 ： https://www.tinymce.com/download/ 可以下载最新版的demo ，但是需要注意的是demo中并不提供语言包的下载，需自己根据需要下载添加
+语言包下载网站 ： http://archive.tinymce.com/i18n/
+开始遇到的问题：添加中文包的时候，没有修改 中文包的文件名称，代码中是小写名称，但是js文件中的是大写，导致汉化失败。
+
+现在demo能跑起来，但是需要再看看具体的一些设置，如何自己增加和修改某些属性
+
+
+
+-----------------------------------------------------------------------------------------------------
+ruby 
+
+学习地址 ： http://www.runoob.com/ruby/ruby-tutorial.html
+
+突然感觉这个ruby是个前途大大的语言，应该好好学习下。
+
+
 -----------------------------------------------------------------------------------------------------
 
 需要整理的文章：

@@ -1,0 +1,59 @@
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Tinymce Test</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <!--<link href="../css/jqGridCss/jquery-ui.custom.min.css" rel="stylesheet" type="text/css" />-->
+        <script type="text/javascript" src="../../js/jquery-1.8.2.min.js" ></script>
+        <script type="text/javascript" src="../../tinymce/tinymceJs/jquery.tinymce.min.js" ></script>
+        <!--        <script type="text/javascript" src="../../tinymce/tinymceJs/tinymce.js" ></script>
+                <script type="text/javascript" src="../../tinymce/tinymceJs/tinymce.min.js" ></script>
+                <script type="text/javascript" src="../../tinymce/tinymceJs/tinymce.dev.js" ></script>-->
+
+
+        <script type="text/javascript">
+            //            tinymce.init({
+            //                selector: "textarea",
+            //                theme: "modern",
+            //                plugins: [
+            //                    "advlist autolink lists link image charmap print preview hr anchor pagebreak",
+            //                    "searchreplace wordcount visualblocks visualchars code fullscreen",
+            //                    "insertdatetime media nonbreaking save table contextmenu directionality",
+            //                    "emoticons template paste textcolor moxiemanager"
+            //                ],
+            //                toolbar1: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image",
+            //                toolbar2: "print preview media | forecolor backcolor emoticons",
+            //                image_advtab: true,
+            //                templates: [
+            //                    {title: 'Test template 1', content: 'Test 1'},
+            //                    {title: 'Test template 2', content: 'Test 2'}
+            //                ]
+            //            });
+
+            tinyMCE.init({
+
+                mode : "exact",
+
+                theme : "mytheme",
+
+                language : "se",
+
+                elements : "elm1,elm2"
+
+            });
+        </script>
+
+    </head>
+    <body>
+        <div>TODO write content</div>
+        <form method="post" action="somepage">
+            <textarea name="content" style="width:100%"></textarea>
+        </form>
+
+
+    </body>
+</html>
